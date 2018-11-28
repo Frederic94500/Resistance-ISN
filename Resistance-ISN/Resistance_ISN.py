@@ -15,7 +15,7 @@ blanc = '#FFFFFF'
 
 Resis = 0
 
-RB = [0, 1, 2]
+RB = [0, 1, 2, 3]
 
 #Définition Fonction
 
@@ -23,7 +23,7 @@ def Couleurs():
 	global Resis
 	Resis = ZT.get()
 	strResis = list(str(Resis))
-	for I in range(3):
+	for I in range(4):
 		if strResis[I] == "0":
 			Graphique.itemconfig(RB[I], fill = noir)
 		if strResis[I] == "1":
@@ -44,30 +44,8 @@ def Couleurs():
 			Graphique.itemconfig(RB[I], fill = gris)
 		if strResis[I] == "9":
 			Graphique.itemconfig(RB[I], fill = blanc)
-
-	nbCM = len(Resis) - 3
-
-	if nbCM == 0:
-		Graphique.itemconfig(RBM, fill = noir)
-	if nbCM == 1:
-		Graphique.itemconfig(RBM, fill = marron)
-	if nbCM == 2:
-		Graphique.itemconfig(RBM, fill = rouge)
-	if nbCM == 3:
-		Graphique.itemconfig(RBM, fill = orange)
-	if nbCM == 4:
-		Graphique.itemconfig(RBM, fill = jaune)
-	if nbCM == 5:
-		Graphique.itemconfig(RBM, fill = vert)
-	if nbCM == 6:
-		Graphique.itemconfig(RBM, fill = bleu)
-	if nbCM == 7:
-		Graphique.itemconfig(RBM, fill = violet)
-	if nbCM == 8:
-		Graphique.itemconfig(RBM, fill = gris)
-	if nbCM == 9:
-		Graphique.itemconfig(RBM, fill = blanc)
-
+		if I >= 2:
+			strResis[3] = str(len(Resis) - 3)
 
 #Création Fenètre
 Fenetre = Tk()
@@ -103,7 +81,7 @@ RB[1] = Graphique.create_rectangle(410, 180, 510, 540, fill = blanc)
 RB[2] = Graphique.create_rectangle(560, 180, 660, 540, fill = blanc)
 
 #Création Bande Multiplicateur
-RBM = Graphique.create_rectangle(920, 180, 1020, 540, fill = blanc)
+RB[3] = Graphique.create_rectangle(920, 180, 1020, 540, fill = blanc)
 
 #Initialisation du GUI
 Fenetre.mainloop()
