@@ -15,75 +15,35 @@ blanc = '#FFFFFF'
 
 Resis = 0
 
+RB = [0, 1, 2]
+
 #Définition Fonction
 
 def Couleurs():
 	global Resis
 	Resis = ZT.get()
 	strResis = list(str(Resis))
-
-	if strResis[0] == "0":
-		Graphique.itemconfig(RB1, fill = noir)
-	if strResis[0] == "1":
-		Graphique.itemconfig(RB1, fill = marron)
-	if strResis[0] == "2":
-		Graphique.itemconfig(RB1, fill = rouge)
-	if strResis[0] == "3":
-		Graphique.itemconfig(RB1, fill = orange)
-	if strResis[0] == "4":
-		Graphique.itemconfig(RB1, fill = jaune)
-	if strResis[0] == "5":
-		Graphique.itemconfig(RB1, fill = vert)
-	if strResis[0] == "6":
-		Graphique.itemconfig(RB1, fill = bleu)
-	if strResis[0] == "7":
-		Graphique.itemconfig(RB1, fill = violet)
-	if strResis[0] == "8":
-		Graphique.itemconfig(RB1, fill = gris)
-	if strResis[0] == "9":
-		Graphique.itemconfig(RB1, fill = blanc)
-
-	if strResis[1] == "0":
-		Graphique.itemconfig(RB2, fill = noir)
-	if strResis[1] == "1":
-		Graphique.itemconfig(RB2, fill = marron)
-	if strResis[1] == "2":
-		Graphique.itemconfig(RB2, fill = rouge)
-	if strResis[1] == "3":
-		Graphique.itemconfig(RB2, fill = orange)
-	if strResis[1] == "4":
-		Graphique.itemconfig(RB2, fill = jaune)
-	if strResis[1] == "5":
-		Graphique.itemconfig(RB2, fill = vert)
-	if strResis[1] == "6":
-		Graphique.itemconfig(RB2, fill = bleu)
-	if strResis[1] == "7":
-		Graphique.itemconfig(RB2, fill = violet)
-	if strResis[1] == "8":
-		Graphique.itemconfig(RB2, fill = gris)
-	if strResis[1] == "9":
-		Graphique.itemconfig(RB2, fill = blanc)
-
-	if strResis[2] == "0":
-		Graphique.itemconfig(RB3, fill = noir)
-	if strResis[2] == "1":
-		Graphique.itemconfig(RB3, fill = marron)
-	if strResis[2] == "2":
-		Graphique.itemconfig(RB3, fill = rouge)
-	if strResis[2] == "3":
-		Graphique.itemconfig(RB3, fill = orange)
-	if strResis[2] == "4":
-		Graphique.itemconfig(RB3, fill = jaune)
-	if strResis[2] == "5":
-		Graphique.itemconfig(RB3, fill = vert)
-	if strResis[2] == "6":
-		Graphique.itemconfig(RB3, fill = bleu)
-	if strResis[2] == "7":
-		Graphique.itemconfig(RB3, fill = violet)
-	if strResis[2] == "8":
-		Graphique.itemconfig(RB3, fill = gris)
-	if strResis[2] == "9":
-		Graphique.itemconfig(RB3, fill = blanc)
+	for I in range(3):
+		if strResis[I] == "0":
+			Graphique.itemconfig(RB[I], fill = noir)
+		if strResis[I] == "1":
+			Graphique.itemconfig(RB[I], fill = marron)
+		if strResis[I] == "2":
+			Graphique.itemconfig(RB[I], fill = rouge)
+		if strResis[I] == "3":
+			Graphique.itemconfig(RB[I], fill = orange)
+		if strResis[I] == "4":
+			Graphique.itemconfig(RB[I], fill = jaune)
+		if strResis[I] == "5":
+			Graphique.itemconfig(RB[I], fill = vert)
+		if strResis[I] == "6":
+			Graphique.itemconfig(RB[I], fill = bleu)
+		if strResis[I] == "7":
+			Graphique.itemconfig(RB[I], fill = violet)
+		if strResis[I] == "8":
+			Graphique.itemconfig(RB[I], fill = gris)
+		if strResis[I] == "9":
+			Graphique.itemconfig(RB[I], fill = blanc)
 
 	nbCM = len(Resis) - 3
 
@@ -138,9 +98,9 @@ LN = Graphique.create_line(20, 360, 160 , 360)
 LN2 = Graphique.create_line(1120, 360, 1260, 360)
 
 #Création Bandes
-RB1 = Graphique.create_rectangle(260, 180, 360, 540, fill = blanc)
-RB2 = Graphique.create_rectangle(410, 180, 510, 540, fill = blanc)
-RB3 = Graphique.create_rectangle(560, 180, 660, 540, fill = blanc)
+RB[0] = Graphique.create_rectangle(260, 180, 360, 540, fill = blanc)
+RB[1] = Graphique.create_rectangle(410, 180, 510, 540, fill = blanc)
+RB[2] = Graphique.create_rectangle(560, 180, 660, 540, fill = blanc)
 
 #Création Bande Multiplicateur
 RBM = Graphique.create_rectangle(920, 180, 1020, 540, fill = blanc)

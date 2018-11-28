@@ -1,4 +1,4 @@
-# Resistance-ISN
+# Résistance-ISN
 Projet ISN de résistance
 
 ## Notes de publication
