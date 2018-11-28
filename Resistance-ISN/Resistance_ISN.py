@@ -21,6 +21,7 @@ def Couleurs():
 	global Resis
 	Resis = ZT.get()
 	strResis = list(str(Resis))
+
 	if strResis[0] == "0":
 		Graphique.itemconfig(RB1, fill = noir)
 	if strResis[0] == "1":
@@ -84,8 +85,7 @@ def Couleurs():
 	if strResis[2] == "9":
 		Graphique.itemconfig(RB3, fill = blanc)
 
-	nbC = len(Resis)
-	nbCM = nbC - 3
+	nbCM = len(Resis) - 3
 
 	if nbCM == 0:
 		Graphique.itemconfig(RBM, fill = noir)
@@ -124,7 +124,7 @@ BoutonQuitter.pack(side = RIGHT, padx = 5, pady = 5)
 #Création Zone de Texte
 ZT = Entry()
 ZT.focus_set()
-ZT.pack(fill = BOTH) #Il faut le centrer entre les 2 boutons
+ZT.pack(side = RIGHT, fill = BOTH) #Il faut le centrer entre les 2 boutons
 
 #Création Bouton Afficher
 BoutonAfficher = Button(Fenetre, text ='Afficher', command = Couleurs)
