@@ -2,62 +2,41 @@ from tkinter import *
 
 #Définition des variables
 
-noir = '#000000'
-marron = '#582900'
-rouge = '#FF0000'
-orange = 'orange'
-jaune = 'yellow'
-vert = '#00FF00'
-bleu = '#0000FF'
-violet = 'violet'
-gris = 'grey'
-blanc = '#FFFFFF'
-
 RB = [0, 1, 2, 3]
 
-#Définition Fonction
+#Définition des Couleurs (PC = Palette de Couleurs)
+#Dans l'ordre: noir, marron, rouge, orange, jaune, vert, bleu, violet, gris, blanc
+PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF', 'violet', 'grey', '#FFFFFF']
 
+#Définition Fonctions
+
+#Fonction de coloration des bandes
 def Couleurs():
 	strResis = list(str(ZT.get()))
-	for I in range(4):
-		if I == 3 and len(str(ZT.get())) > 3:
-			strResis[I] = str(len(ZT.get()) - 3)
-		if I ==3 and len(str(ZT.get())) <= 3:
-			Graphique.itemconfig(RB[I], fill = noir)
-			break;
-		if strResis[I] == "0":
-			Graphique.itemconfig(RB[I], fill = noir)
-		if strResis[I] == "1":
-			Graphique.itemconfig(RB[I], fill = marron)
-		if strResis[I] == "2":
-			Graphique.itemconfig(RB[I], fill = rouge)
-		if strResis[I] == "3":
-			Graphique.itemconfig(RB[I], fill = orange)
-		if strResis[I] == "4":
-			Graphique.itemconfig(RB[I], fill = jaune)
-		if strResis[I] == "5":
-			Graphique.itemconfig(RB[I], fill = vert)
-		if strResis[I] == "6":
-			Graphique.itemconfig(RB[I], fill = bleu)
-		if strResis[I] == "7":
-			Graphique.itemconfig(RB[I], fill = violet)
-		if strResis[I] == "8":
-			Graphique.itemconfig(RB[I], fill = gris)
-		if strResis[I] == "9":
-			Graphique.itemconfig(RB[I], fill = blanc)
+	Clean()
+	if len(strResis) <= 3:
+		for I in range(len(strResis)):
+			Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
+	else:
+		for I in range(3):
+			Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
+	Graphique.itemconfig(RB[3], fill = PC[len(strResis)-1])
 
-
+#Fonction de nettoyage
 def Clean():
 	for I in range(4):
-		Graphique.itemconfig(RB[I], fill = blanc)
+		Graphique.itemconfig(RB[I], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
+
+#def Info(): (WIP)
+
 
 #Création Fenètre
 Fenetre = Tk()
 Fenetre.title('Résistance')
 
 #Création du Canvas
-Graphique = Canvas(Fenetre, width = 1280, height = 720, bg = blanc)
+Graphique = Canvas(Fenetre, width = 1280, height = 720, bg = PC[9])
 Graphique.pack()
 
 #Création Bouton Quitter
@@ -77,20 +56,29 @@ BoutonAfficher.pack(side = LEFT, padx = 5, pady = 5)
 BoutonEffacer = Button(Fenetre, text = 'Effacer', command = Clean)
 BoutonEffacer.pack(side = LEFT)
 
+#Création Textes (WIP)
+#T1 = Text(Graphique)
+#T1.insert(INSERT, 'Voici les couleurs du résistance pour:')
+#T1.pack(side = TOP)
+
+#Resis = StringVar()
+#TA = Text(Fenetre)
+#TA.pack(side = TOP)
+
 #Création Rectangle Central
-RC = Graphique.create_rectangle(160, 180, 1120, 540, outline = noir , fill = '#87591A')
+RC = Graphique.create_rectangle(160, 180, 1120, 540, outline = PC[0] , fill = '#87591A')
 
 #Création Lignes
 LN = Graphique.create_line(20, 360, 160 , 360, width = 20)
 LN2 = Graphique.create_line(1120, 360, 1260, 360, width = 20)
 
 #Création Bandes
-RB[0] = Graphique.create_rectangle(260, 180, 360, 540, fill = blanc)
-RB[1] = Graphique.create_rectangle(410, 180, 510, 540, fill = blanc)
-RB[2] = Graphique.create_rectangle(560, 180, 660, 540, fill = blanc)
+RB[0] = Graphique.create_rectangle(260, 180, 360, 540, fill = PC[0])
+RB[1] = Graphique.create_rectangle(410, 180, 510, 540, fill = PC[0])
+RB[2] = Graphique.create_rectangle(560, 180, 660, 540, fill = PC[0])
 
 #Création Bande Multiplicateur
-RB[3] = Graphique.create_rectangle(920, 180, 1020, 540, fill = blanc)
+RB[3] = Graphique.create_rectangle(920, 180, 1020, 540, fill = PC[0])
 
 #Initialisation du GUI
 Fenetre.mainloop()
