@@ -1,5 +1,6 @@
 from tkinter import *
 import webbrowser
+from tkinter.messagebox import *
 
 #Définition des variables
 
@@ -11,12 +12,23 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 
 
 #Définition Fonctions
+
+#Fonction de vérification s'il n'y a pas de nombres décimaux et nombres > 10^9
+def Verification():
+	point = 0
+	for I in range(len(str(ZT.get()))):
+		if str(ZT.get())[I] == ".":
+			point = 1
+			break;
+	if len(str(ZT.get())) > 10 or point == 1:
+		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
+	else:
+		Couleurs()
+
 #Fonction de coloration des bandes
-def Couleurs(event):
-	global strResis
+def Couleurs():
 	strResis = str(ZT.get())
 	Clean()
-	Info()
 	if len(strResis) <= 3:
 		for I in range(len(strResis)):
 			Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
@@ -24,17 +36,18 @@ def Couleurs(event):
 		for I in range(3):
 			Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
 	Graphique.itemconfig(RB[3], fill = PC[len(strResis)-1])
+	Resis.set('Voici les couleurs du résistance pour: ' + strResis)
+
+#Fonction "Quand on appuie sur "enter""
+def Enter(event):
+	Verification()
 
 #Fonction de nettoyage
 def Clean():
 	for I in range(4):
 		Graphique.itemconfig(RB[I], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
-	Resis.set("")
-
-#Fonction d'affichage pour la couleur du résistance
-def Info():
-	Resis.set('Voici les couleurs du résistance pour: ' + strResis)
+	Resis.set("<--- Veuillez saisir votre résistance")
 
 #Fonction Ouvrir la page du projet
 def Web():
@@ -63,7 +76,7 @@ helpmenu.add_command(label = "Vistez le GitHub", command = Web)
 Fenetre.config(menu=menubar)
 
 #Création Bouton Afficher
-BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Couleurs)
+BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Verification)
 BoutonAfficher.pack(side = LEFT, padx = 5, pady = 5)
 
 #Création Bouton Effacer
@@ -76,11 +89,12 @@ ZT.focus_set()
 ZT.pack(side = LEFT, fill = BOTH, padx = 5, pady = 5)
 
 #Quand on appuie sur "enter"
-Fenetre.bind('<Return>', Couleurs)
+Fenetre.bind('<Return>', Enter)
 
-#Création Texte -> Annonce
+#Création Texte
 Resis = StringVar()
 TA = Label(Fenetre, textvariable = Resis)
+Resis.set("<--- Veuillez saisir votre résistance")
 TA.pack()
 
 #Création Rectangle Central
