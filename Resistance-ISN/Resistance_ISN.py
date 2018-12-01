@@ -36,7 +36,7 @@ def Couleurs():
 		for I in range(3):
 			Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
 	Graphique.itemconfig(RB[3], fill = PC[len(strResis)-1])
-	Resis.set('Voici les couleurs du résistance pour: ' + strResis)
+	Resis.set('Voici les couleurs de la résistance pour: ' + strResis)
 
 #Fonction "Quand on appuie sur "enter""
 def Enter(event):
