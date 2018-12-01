@@ -1,10 +1,9 @@
 from tkinter import *
+import webbrowser
 
 #Définition des variables
 
 RB = [0, 1, 2, 3]
-
-Resis = 0
 
 #Définition des Couleurs (PC = Palette de Couleurs)
 #Dans l'ordre: noir, marron, rouge, orange, jaune, vert, bleu, violet, gris, blanc
@@ -13,7 +12,7 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 
 #Définition Fonctions
 #Fonction de coloration des bandes
-def Couleurs():
+def Couleurs(event):
 	global strResis
 	strResis = str(ZT.get())
 	Clean()
@@ -37,6 +36,10 @@ def Clean():
 def Info():
 	Resis.set('Voici les couleurs du résistance pour: ' + strResis)
 
+#Fonction Ouvrir la page du projet
+def Web():
+	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN')
+
 
 #Création Fenètre
 Fenetre = Tk()
@@ -46,14 +49,18 @@ Fenetre.title('Résistance')
 Graphique = Canvas(Fenetre, width = 1280, height = 720, bg = PC[9])
 Graphique.pack()
 
-#Création Bouton Quitter
-BoutonQuitter = Button(Fenetre, text = 'Quitter', command = Fenetre.destroy)
-BoutonQuitter.pack(side = RIGHT, padx = 5, pady = 5)
+#Création barre de menu
+menubar = Menu(Fenetre)
 
-#Création Zone de Texte
-ZT = Entry(justify = CENTER)
-ZT.focus_set()
-ZT.pack(side = LEFT, fill = BOTH)
+filemenu = Menu(menubar, tearoff=0)
+menubar.add_cascade(label = "Fichier", menu = filemenu)
+filemenu.add_command(label = "Quitter", command = Fenetre.destroy)
+
+helpmenu = Menu(menubar, tearoff=0)
+menubar.add_cascade(label = "Aide", menu = helpmenu)
+helpmenu.add_command(label = "Vistez le GitHub", command = Web)
+
+Fenetre.config(menu=menubar)
 
 #Création Bouton Afficher
 BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Couleurs)
@@ -63,8 +70,15 @@ BoutonAfficher.pack(side = LEFT, padx = 5, pady = 5)
 BoutonEffacer = Button(Fenetre, text = 'Effacer', command = Clean)
 BoutonEffacer.pack(side = LEFT)
 
-#Création Texte
-#Texte annonce nombre
+#Création Zone de Texte
+ZT = Entry(justify = CENTER)
+ZT.focus_set()
+ZT.pack(side = LEFT, fill = BOTH, padx = 5, pady = 5)
+
+#Quand on appuie sur "enter"
+Fenetre.bind('<Return>', Couleurs)
+
+#Création Texte -> Annonce
 Resis = StringVar()
 TA = Label(Fenetre, textvariable = Resis)
 TA.pack()
@@ -86,5 +100,3 @@ RB[3] = Graphique.create_rectangle(920, 180, 1020, 540, fill = PC[0])
 
 #Initialisation du GUI
 Fenetre.mainloop()
-
-
