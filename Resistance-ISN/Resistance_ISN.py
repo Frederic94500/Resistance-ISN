@@ -6,6 +6,9 @@ from tkinter.messagebox import *
 
 RB = [0, 1, 2, 3]
 
+#PHrase de début
+PHStart = "<--- Veuillez saisir la valeur de votre résistance"
+
 #Définition des Couleurs (PC = Palette de Couleurs)
 #Dans l'ordre: noir, marron, rouge, orange, jaune, vert, bleu, violet, gris, blanc
 PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF', 'violet', 'grey', '#FFFFFF']
@@ -48,7 +51,7 @@ def Clean():
 	for I in range(4):
 		Graphique.itemconfig(RB[I], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
-	Resis.set("<--- Veuillez saisir la valeur de votre résistance")
+	Resis.set(PHStart)
 
 #Fonction Ouvrir la page du projet
 def Web():
@@ -95,7 +98,7 @@ Fenetre.bind('<Return>', Enter)
 #Création Texte
 Resis = StringVar()
 TA = Label(Fenetre, textvariable = Resis)
-Resis.set("<--- Veuillez saisir votre résistance")
+Resis.set(PHStart)
 TA.pack()
 
 #Création Rectangle Central
