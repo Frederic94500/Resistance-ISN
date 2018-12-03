@@ -18,20 +18,21 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 
 #Fonction de vérification s'il n'y a pas de nombres décimaux et nombres > 10^9
 def Verification():
+	global strResis
+	strResis = str(ZT.get())
 	point = 0
-	for I in range(len(str(ZT.get()))):
-		if str(ZT.get())[I] == ".":
+	for I in range(len(strResis)):
+		if strResis[I] == "." or strResis[I] == " " or len(strResis) == 0:
 			point = 1
 			break;
-	if len(str(ZT.get())) > 10 or point == 1:
-		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
+	if len(strResis) > 10 or point == 1:
+		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
 		Resis.set('<--- Veuillez vérifier votre valeur')
 	else:
 		Couleurs()
 
 #Fonction de coloration des bandes
 def Couleurs():
-	strResis = str(ZT.get())
 	Clean()
 	if len(strResis) <= 3:
 		for I in range(len(strResis)):
