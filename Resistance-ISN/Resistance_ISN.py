@@ -22,6 +22,7 @@ def Verification():
 			break;
 	if len(str(ZT.get())) > 10 or point == 1:
 		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
+		Resis.set('<--- Veuillez vérifier votre valeur')
 	else:
 		Couleurs()
 
@@ -47,7 +48,7 @@ def Clean():
 	for I in range(4):
 		Graphique.itemconfig(RB[I], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
-	Resis.set("<--- Veuillez saisir votre résistance")
+	Resis.set("<--- Veuillez saisir la valeur de votre résistance")
 
 #Fonction Ouvrir la page du projet
 def Web():
