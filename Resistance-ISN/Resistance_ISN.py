@@ -64,7 +64,7 @@ Fenetre = Tk()
 Fenetre.title('Résistance')
 
 #Création du Canvas
-Graphique = Canvas(Fenetre, width = 1280, height = 720, bg = PC[9])
+Graphique = Canvas(Fenetre, width = 1280, height = 480, bg = PC[9])
 Graphique.pack()
 
 #Création barre de menu
@@ -103,19 +103,19 @@ Resis.set(PHStart)
 TA.pack()
 
 #Création Rectangle Central
-RC = Graphique.create_rectangle(160, 180, 1120, 540, outline = PC[0] , fill = '#87591A')
+RC = Graphique.create_rectangle(160, 120, 1120, 360, outline = PC[0] , fill = '#87591A')
 
 #Création Lignes
-LN = Graphique.create_line(20, 360, 160 , 360, width = 20)
-LN2 = Graphique.create_line(1120, 360, 1260, 360, width = 20)
+LN = Graphique.create_line(20, 240, 160 , 240, width = 20)
+LN2 = Graphique.create_line(1120, 240, 1260, 240, width = 20)
 
 #Création Bandes
-RB[0] = Graphique.create_rectangle(260, 180, 360, 540, fill = PC[0])
-RB[1] = Graphique.create_rectangle(410, 180, 510, 540, fill = PC[0])
-RB[2] = Graphique.create_rectangle(560, 180, 660, 540, fill = PC[0])
+RB[0] = Graphique.create_rectangle(260, 120, 360, 360, fill = PC[0])
+RB[1] = Graphique.create_rectangle(410, 120, 510, 360, fill = PC[0])
+RB[2] = Graphique.create_rectangle(560, 120, 660, 360, fill = PC[0])
 
 #Création Bande Multiplicateur
-RB[3] = Graphique.create_rectangle(920, 180, 1020, 540, fill = PC[0])
+RB[3] = Graphique.create_rectangle(920, 120, 1020, 360, fill = PC[0])
 
 #Initialisation du GUI
 Fenetre.mainloop()
