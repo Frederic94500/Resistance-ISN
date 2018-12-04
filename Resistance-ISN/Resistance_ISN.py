@@ -5,7 +5,7 @@ from tkinter.messagebox import *
 #Définition des variables
 
 RB = [0, 1, 2, 3]
-global ChiffresSigni
+ChiffresSigni = 3
 
 #PHrase de début
 PHStart = "<--- Veuillez saisir la valeur de votre résistance"
@@ -20,14 +20,13 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 #Fonction de vérification s'il n'y a pas de nombres décimaux et nombres > 10^9
 def Verification():
 	global strResis
-	global ChiffresSigni
 	strResis = list(str(ZT.get()))
 	point = 0
 	for I in range(len(strResis)):
 		if strResis[I] == "." or strResis[I] == " ":
 			point = 1
 			break;
-	if len(strResis) > 10 or point == 1:
+	if point == 1 or len(strResis) > 10 or (ChiffresSigni == 3 and len(strResis) < 3) or (ChiffresSigni == 2 and len(strResis) < 2):
 		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
 		Resis.set('<--- Veuillez vérifier votre valeur')
 	else:
@@ -35,7 +34,7 @@ def Verification():
 
 #Fonction de coloration des bandes
 def Couleurs(ChiffresSigni):
-	#Clean()
+	Clean()
 	Resis.set('Voici les couleurs de la résistance pour: ' + "".join(strResis))
 	for I in range(ChiffresSigni):
 		Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
@@ -49,19 +48,21 @@ def Enter(event):
 
 #Fonction de nettoyage
 def Clean():
-	for I in range(4):
+	for I in range(ChiffresSigni):
 		Graphique.itemconfig(RB[I], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
 	Resis.set(PHStart)
 
 #Fonction du choix du nombres de bandes
-def Bandes4():
-	Graphique.itemconfig(RB[2], fill = PC[0], outline = PC[0])
-	ChiffresSigni = 3
-
 def Bandes3():
+	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = "#87591A", outline = "#87591A")
 	ChiffresSigni = 2
+
+def Bandes4():
+	global ChiffresSigni
+	Graphique.itemconfig(RB[2], fill = PC[0], outline = PC[0])
+	ChiffresSigni = 3
 
 #Fonction Ouvrir la page du projet
 def Web():
@@ -128,9 +129,11 @@ LN2 = Graphique.create_line(1120, 240, 1260, 240, width = 20)
 #Création Rectangles Bandes
 RB[0] = Graphique.create_rectangle(260, 120, 360, 360, fill = PC[0])
 RB[1] = Graphique.create_rectangle(410, 120, 510, 360, fill = PC[0])
+
+#Création Rectangle Bande variable (disparaît à 2 Chiffres Significatifs)
 RB[2] = Graphique.create_rectangle(560, 120, 660, 360, fill = PC[0])
 
-#Création Bande Multiplicateur
+#Création Rectangle Bande Multiplicateur
 RB[3] = Graphique.create_rectangle(920, 120, 1020, 360, fill = PC[0])
 
 #Initialisation du GUI
