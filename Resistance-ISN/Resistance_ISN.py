@@ -48,8 +48,13 @@ def Enter(event):
 
 #Fonction de nettoyage
 def Clean():
-	for I in range(ChiffresSigni):
-		Graphique.itemconfig(RB[I], fill = PC[0])
+	if ChiffresSigni == 3:
+		for I in range(ChiffresSigni):
+			Graphique.itemconfig(RB[I], fill = PC[0])
+	else:
+		for I in range(ChiffresSigni):
+			Graphique.itemconfig(RB[I], fill = PC[0])
+		Graphique.itemconfig(RB[3], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
 	Resis.set(PHStart)
 
@@ -58,11 +63,13 @@ def Bandes3():
 	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = "#87591A", outline = "#87591A")
 	ChiffresSigni = 2
+	Clean()
 
 def Bandes4():
 	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = PC[0], outline = PC[0])
 	ChiffresSigni = 3
+	Clean()
 
 #Fonction Ouvrir la page du projet
 def Web():
