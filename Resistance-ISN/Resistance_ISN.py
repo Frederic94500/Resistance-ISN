@@ -65,12 +65,14 @@ def Bandes3():
 	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = "#87591A", outline = "#87591A")
 	ChiffresSigni = 2
+	Fenetre.title("Résistance à 3 bandes")
 	Clean()
 
 def Bandes4():
 	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = PC[0], outline = PC[0])
 	ChiffresSigni = 3
+	Fenetre.title("Résistance à 4 bandes")
 	Clean()
 
 #Fonction Ouvrir la page du projet
@@ -80,7 +82,7 @@ def Web():
 
 #Création Fenètre
 Fenetre = Tk()
-Fenetre.title('Résistance')
+Fenetre.title('Résistance à 4 bandes')
 
 #Création du Canvas
 Graphique = Canvas(Fenetre, width = 1280, height = 480, bg = PC[9])
@@ -94,7 +96,6 @@ menubar.add_cascade(label = "Fichier", menu = filemenu)
 filemenu.add_command(label = "Quitter", command = Fenetre.destroy)
 
 Actif = IntVar()
-ChiffresSigni = 3
 editmenu = Menu(menubar, tearoff=0)
 menubar.add_cascade(label = "Edition", menu = editmenu)
 editmenu.add_radiobutton(label = "Résistance à 4 bandes", variable = Actif, value = 0, command = Bandes4)
