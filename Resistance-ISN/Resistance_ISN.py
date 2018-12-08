@@ -20,26 +20,28 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 #Fonction de vérification s'il n'y a pas de nombres décimaux et nombres > 10^9
 def Verification():
 	global strResis
-	strResis = list(str(ZT.get()))
+	strResis = str(ZT.get())
 	point = 0
 	for I in range(len(strResis)):
-		if strResis[I] == "." or strResis[I] == " ":
-			point = 1
-			break;
-	if point == 1 or len(strResis) > 10 or (ChiffresSigni == 3 and len(strResis) < 3) or (ChiffresSigni == 2 and len(strResis) < 2):
-		WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 10^9. Veuillez vérifier votre saisie")
+		if strResis[I] == "." or strResis[I] == " " or len(strResis) > 12:
+			WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 12 chiffres significatifs. Veuillez vérifier votre saisie.")
+			Resis.set('<--- Veuillez vérifier votre valeur')
+			return
+	if (ChiffresSigni == 3 and len(strResis) < 3) or (ChiffresSigni == 2 and len(strResis) < 2):
+		WARN = showwarning("Attention!", "Votre valeur " + strResis + " n'a pas assez de chiffres significatifs (c'est-à-dire " + str(ChiffresSigni) + "). Veuillez vérifier votre saisie.")
 		Resis.set('<--- Veuillez vérifier votre valeur')
 	else:
 		Couleurs(ChiffresSigni)
 
 #Fonction de coloration des bandes
 def Couleurs(ChiffresSigni):
+	listResis = list(strResis)
 	Clean()
-	Resis.set('Voici les couleurs de la résistance pour: ' + "".join(strResis))
+	Resis.set('Voici les couleurs de la résistance pour: ' + strResis)
 	for I in range(ChiffresSigni):
-		Graphique.itemconfig(RB[I], fill = PC[int(strResis[I])])
-	del strResis[0:ChiffresSigni-1]
-	Graphique.itemconfig(RB[3], fill = PC[len(strResis)-1])
+		Graphique.itemconfig(RB[I], fill = PC[int(listResis[I])])
+	del listResis[0:ChiffresSigni-1]
+	Graphique.itemconfig(RB[3], fill = PC[len(listResis)-1])
 
 
 #Fonction "Quand on appuie sur "enter""
@@ -49,7 +51,7 @@ def Enter(event):
 #Fonction de nettoyage
 def Clean():
 	if ChiffresSigni == 3:
-		for I in range(ChiffresSigni):
+		for I in range(4):
 			Graphique.itemconfig(RB[I], fill = PC[0])
 	else:
 		for I in range(ChiffresSigni):
