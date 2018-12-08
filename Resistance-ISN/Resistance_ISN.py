@@ -38,8 +38,7 @@ def Couleurs(ChiffresSigni):
 	listResis = list(strResis)
 	Clean()
 	Resis.set('Voici les couleurs de la résistance pour: ' + strResis)
-	for I in range(ChiffresSigni):
-		Graphique.itemconfig(RB[I], fill = PC[int(listResis[I])])
+	[Graphique.itemconfig(RB[I], fill = PC[int(listResis[I])]) for I in range(ChiffresSigni)]
 	del listResis[0:ChiffresSigni-1]
 	Graphique.itemconfig(RB[3], fill = PC[len(listResis)-1])
 
@@ -50,12 +49,9 @@ def Enter(event):
 
 #Fonction de nettoyage
 def Clean():
-	if ChiffresSigni == 3:
-		for I in range(4):
-			Graphique.itemconfig(RB[I], fill = PC[0])
+	if ChiffresSigni == 3: [Graphique.itemconfig(RB[I], fill = PC[0]) for I in range(4)]
 	else:
-		for I in range(ChiffresSigni):
-			Graphique.itemconfig(RB[I], fill = PC[0])
+		[Graphique.itemconfig(RB[I], fill = PC[0]) for I in range(ChiffresSigni)]
 		Graphique.itemconfig(RB[3], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
 	Resis.set(PHStart)
