@@ -85,7 +85,7 @@ def WebLicence(event):
 
 def APropos():
 	About = Toplevel()
-	About.title("A propos")
+	About.title("A propos et licence")
 
 	AbText = Label(About, text = "Ce programme a été fait par")
 	AbText2 = Label(About, text = "Frédéric94500", fg = "blue", cursor = "hand2")
@@ -131,7 +131,7 @@ menubar.add_cascade(label = "Aide", menu = helpmenu)
 helpmenu.add_command(label = "Vistez le GitHub", command = WebProj)
 helpmenu.add_command(label = "Visitez le Wiki", command = WebWiki)
 helpmenu.add_separator()
-helpmenu.add_command(label = "A propos", command = APropos)
+helpmenu.add_command(label = "A propos et licence", command = APropos)
 
 Fenetre.config(menu=menubar)
 
