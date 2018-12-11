@@ -84,21 +84,26 @@ def WebLicence(event):
 	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN/blob/master/LICENSE')
 
 def APropos():
-	About = Tk()
+	About = Toplevel()
 	About.title("A propos")
 
-	AbText = Label(About, text = "Ce programme a été par ")
+	AbText = Label(About, text = "Ce programme a été fait par")
 	AbText2 = Label(About, text = "Frédéric94500", fg = "blue", cursor = "hand2")
-	AbText3 = Label(About, text = " sous la licence ")
+	AbText3 = Label(About, text = "sous la licence")
 	AbText4 = Label(About, text = "GPL-3.0", fg = "blue", cursor = "hand2")
 
 	AbText2.bind("<Button-1>", WebAuteur)
 	AbText4.bind("<Button-1>", WebLicence)
 
-	AbText.pack(side = "left", padx = 10, pady = 10)
-	AbText2.pack(side = "left")
-	AbText3.pack(side = "left")
-	AbText4.pack(side = "left")
+	AbText.pack(side = "left", pady = 10)
+	AbText2.pack(side = "left", pady = 10)
+	AbText3.pack(side = "left", pady = 10)
+	AbText4.pack(side = "left", pady = 10)
+
+	photo = PhotoImage(file="gpl.pgm")
+	img = Label(About, image=photo)
+	img.image = photo
+	img.pack()
 
 #Création Fenètre
 Fenetre = Tk()
@@ -131,12 +136,10 @@ helpmenu.add_command(label = "A propos", command = APropos)
 Fenetre.config(menu=menubar)
 
 #Création Bouton Afficher
-BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Verification)
-BoutonAfficher.pack(side = LEFT, padx = 5, pady = 5)
+BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Verification).pack(side = LEFT, padx = 5, pady = 5)
 
 #Création Bouton Effacer
-BoutonEffacer = Button(Fenetre, text = 'Effacer', command = Clean)
-BoutonEffacer.pack(side = LEFT)
+BoutonEffacer = Button(Fenetre, text = 'Effacer', command = Clean).pack(side = LEFT)
 
 #Création Zone de Texte
 ZT = Entry(justify = CENTER)
@@ -148,9 +151,8 @@ Fenetre.bind('<Return>', Enter)
 
 #Création Texte et Texte Annonce
 Texte = StringVar()
-TA = Label(Fenetre, textvariable = Texte)
+TA = Label(Fenetre, textvariable = Texte).pack(side = LEFT)
 Texte.set(PHStart)
-TA.pack()
 
 #Création Rectangle Central
 RC = Graphique.create_rectangle(160, 120, 1120, 360, outline = '#87591A' , fill = '#87591A')
