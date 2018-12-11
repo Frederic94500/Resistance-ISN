@@ -77,11 +77,28 @@ def WebProj():
 def WebWiki():
 	webbrowser.open_new_tab('https://www.youtube.com/watch?v=dQw4w9WgXcQ') #Non implanté WIP
 
+def WebAuteur(event):
+	webbrowser.open_new_tab('https://twitter.com/Frederic94500')
+
+def WebLicence(event):
+	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN/blob/master/LICENSE')
+
 def APropos():
 	About = Tk()
 	About.title("A propos")
-	AbText = Label(About, text = "Ce programme est fait par " + webbrowser.open_new_tab('https://twitter.com/Frederic94500').write("Frederic94500") + "sous la licence" )
+
+	AbText = Label(About, text = "Ce programme a été par ")
+	AbText2 = Label(About, text = "Frédéric94500", fg = "blue", cursor = "hand2")
+	AbText3 = Label(About, text = " sous la licence ")
+	AbText4 = Label(About, text = "GPL-3.0", fg = "blue", cursor = "hand2")
+
+	AbText2.bind("<Button-1>", WebAuteur)
+	AbText4.bind("<Button-1>", WebLicence)
+
 	AbText.pack(side = "left", padx = 10, pady = 10)
+	AbText2.pack(side = "left")
+	AbText3.pack(side = "left")
+	AbText4.pack(side = "left")
 
 #Création Fenètre
 Fenetre = Tk()
