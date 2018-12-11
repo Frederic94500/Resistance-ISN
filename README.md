@@ -7,5 +7,5 @@ Pour télécharger les executables et les fichiers sources, c'est [ICI](https://
 
 ## Licence
 
-J'ai utilisé la licence [AGPL-3.0](https://github.com/Frederic94500/Resistance-ISN/blob/master/LICENSE)
+J'ai utilisé la licence [GPL-3.0](https://github.com/Frederic94500/Resistance-ISN/blob/master/LICENSE)
 
