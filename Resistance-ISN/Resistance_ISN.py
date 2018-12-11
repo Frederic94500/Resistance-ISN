@@ -21,15 +21,14 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 def Verification():
 	global strResis
 	strResis = str(ZT.get())
-	point = 0
 	for I in range(len(strResis)):
 		if strResis[I] == "." or strResis[I] == " " or len(strResis) > 12:
 			WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 12 chiffres significatifs. Veuillez vérifier votre saisie.")
-			Resis.set('<--- Veuillez vérifier votre valeur')
+			Texte.set('<--- Veuillez vérifier votre valeur')
 			return
 	if (ChiffresSigni == 3 and len(strResis) < 3) or (ChiffresSigni == 2 and len(strResis) < 2):
 		WARN = showwarning("Attention!", "Votre valeur " + strResis + " n'a pas assez de chiffres significatifs (c'est-à-dire " + str(ChiffresSigni) + "). Veuillez vérifier votre saisie.")
-		Resis.set('<--- Veuillez vérifier votre valeur')
+		Texte.set('<--- Veuillez vérifier votre valeur')
 	else:
 		Couleurs(ChiffresSigni)
 
@@ -37,7 +36,7 @@ def Verification():
 def Couleurs(ChiffresSigni):
 	listResis = list(strResis)
 	Clean()
-	Resis.set('Voici les couleurs de la résistance pour: ' + strResis)
+	Texte.set('Voici les couleurs de la résistance pour: ' + strResis)
 	[Graphique.itemconfig(RB[I], fill = PC[int(listResis[I])]) for I in range(ChiffresSigni)]
 	del listResis[0:ChiffresSigni-1]
 	Graphique.itemconfig(RB[3], fill = PC[len(listResis)-1])
@@ -54,7 +53,7 @@ def Clean():
 		[Graphique.itemconfig(RB[I], fill = PC[0]) for I in range(ChiffresSigni)]
 		Graphique.itemconfig(RB[3], fill = PC[0])
 	ZT.delete(first = 0, last = len(str(ZT.get())))
-	Resis.set(PHStart)
+	Texte.set(PHStart)
 
 #Fonction du choix du nombres de bandes
 def Bandes3():
@@ -72,9 +71,17 @@ def Bandes4():
 	Clean()
 
 #Fonction Ouvrir la page du projet
-def Web():
+def WebProj():
 	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN')
 
+def WebWiki():
+	webbrowser.open_new_tab('https://www.youtube.com/watch?v=dQw4w9WgXcQ') #Non implanté WIP
+
+def APropos():
+	About = Tk()
+	About.title("A propos")
+	AbText = Label(About, text = "Ce programme est fait par " + webbrowser.open_new_tab('https://twitter.com/Frederic94500').write("Frederic94500") + "sous la licence" )
+	AbText.pack(side = "left", padx = 10, pady = 10)
 
 #Création Fenètre
 Fenetre = Tk()
@@ -99,7 +106,10 @@ editmenu.add_radiobutton(label = "Résistance à 3 bandes", variable = Actif, va
 
 helpmenu = Menu(menubar, tearoff=0)
 menubar.add_cascade(label = "Aide", menu = helpmenu)
-helpmenu.add_command(label = "Vistez le GitHub", command = Web)
+helpmenu.add_command(label = "Vistez le GitHub", command = WebProj)
+helpmenu.add_command(label = "Visitez le Wiki", command = WebWiki)
+helpmenu.add_separator()
+helpmenu.add_command(label = "A propos", command = APropos)
 
 Fenetre.config(menu=menubar)
 
@@ -119,14 +129,14 @@ ZT.pack(side = LEFT, fill = BOTH, padx = 5, pady = 5)
 #Quand on appuie sur "enter"
 Fenetre.bind('<Return>', Enter)
 
-#Création Texte
-Resis = StringVar()
-TA = Label(Fenetre, textvariable = Resis)
-Resis.set(PHStart)
+#Création Texte et Texte Annonce
+Texte = StringVar()
+TA = Label(Fenetre, textvariable = Texte)
+Texte.set(PHStart)
 TA.pack()
 
 #Création Rectangle Central
-RC = Graphique.create_rectangle(160, 120, 1120, 360, outline = PC[0] , fill = '#87591A')
+RC = Graphique.create_rectangle(160, 120, 1120, 360, outline = '#87591A' , fill = '#87591A')
 
 #Création Lignes
 LN = Graphique.create_line(20, 240, 160 , 240, width = 20)
