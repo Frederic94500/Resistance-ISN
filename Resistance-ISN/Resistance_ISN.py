@@ -87,18 +87,17 @@ def APropos():
 	About = Toplevel()
 	About.title("A propos et licence")
 
-	AbText = Label(About, text = "Ce programme a été fait par")
-	AbText2 = Label(About, text = "Frédéric94500", fg = "blue", cursor = "hand2")
-	AbText3 = Label(About, text = "sous la licence")
-	AbText4 = Label(About, text = "GPL-3.0", fg = "blue", cursor = "hand2")
+	AbText = [0, 1, 2, 3]
 
-	AbText2.bind("<Button-1>", WebAuteur)
-	AbText4.bind("<Button-1>", WebLicence)
+	AbText[0] = Label(About, text = "Ce programme a été fait par")
+	AbText[1] = Label(About, text = "Frédéric94500", fg = "blue", cursor = "hand2")
+	AbText[2] = Label(About, text = "sous la licence")
+	AbText[3] = Label(About, text = "GPL-3.0", fg = "blue", cursor = "hand2")
 
-	AbText.pack(side = "left", pady = 10)
-	AbText2.pack(side = "left", pady = 10)
-	AbText3.pack(side = "left", pady = 10)
-	AbText4.pack(side = "left", pady = 10)
+	AbText[2].bind("<Button-1>", WebAuteur)
+	AbText[3].bind("<Button-1>", WebLicence)
+
+	[AbText[I].pack(side = "left", pady = 10) for I in range(4)]
 
 	photo = PhotoImage(file="gpl.pgm")
 	img = Label(About, image=photo)
