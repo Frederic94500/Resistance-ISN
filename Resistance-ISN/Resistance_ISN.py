@@ -7,7 +7,6 @@ from PIL import Image, ImageTk
 
 RB = [0, 1, 2, 3]
 ChiffresSigni = 3
-Num = "1234567890"
 
 #PHrase de début
 PHStart = "<--- Veuillez saisir la valeur de votre résistance"
