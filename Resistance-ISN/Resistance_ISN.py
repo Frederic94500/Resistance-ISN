@@ -1,11 +1,13 @@
 from tkinter import *
 import webbrowser
 from tkinter.messagebox import *
+from PIL import Image, ImageTk
 
 #Définition des variables
 
 RB = [0, 1, 2, 3]
 ChiffresSigni = 3
+Num = "1234567890"
 
 #PHrase de début
 PHStart = "<--- Veuillez saisir la valeur de votre résistance"
@@ -74,9 +76,6 @@ def Bandes4():
 def WebProj():
 	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN')
 
-def WebWiki():
-	webbrowser.open_new_tab('https://www.youtube.com/watch?v=dQw4w9WgXcQ') #Non implanté WIP
-
 def WebAuteur(event):
 	webbrowser.open_new_tab('https://twitter.com/Frederic94500')
 
@@ -94,12 +93,12 @@ def APropos():
 	AbText[2] = Label(About, text = "sous la licence")
 	AbText[3] = Label(About, text = "GPL-3.0", fg = "blue", cursor = "hand2")
 
-	AbText[2].bind("<Button-1>", WebAuteur)
+	AbText[1].bind("<Button-1>", WebAuteur)
 	AbText[3].bind("<Button-1>", WebLicence)
 
 	[AbText[I].pack(side = "left", pady = 10) for I in range(4)]
 
-	photo = PhotoImage(file="gpl.pgm")
+	photo = ImageTk.PhotoImage(Image.open("gpl.png"))
 	img = Label(About, image=photo)
 	img.image = photo
 	img.pack()
@@ -128,7 +127,6 @@ editmenu.add_radiobutton(label = "Résistance à 3 bandes", variable = Actif, va
 helpmenu = Menu(menubar, tearoff=0)
 menubar.add_cascade(label = "Aide", menu = helpmenu)
 helpmenu.add_command(label = "Vistez le GitHub", command = WebProj)
-helpmenu.add_command(label = "Visitez le Wiki", command = WebWiki)
 helpmenu.add_separator()
 helpmenu.add_command(label = "A propos et licence", command = APropos)
 
