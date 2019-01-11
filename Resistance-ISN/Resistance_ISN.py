@@ -1,10 +1,11 @@
+#Frédéric94500 - Résistance-ISN
+
 from tkinter import *
 import webbrowser
 from tkinter.messagebox import *
 from PIL import Image, ImageTk
 
 #Définition des variables
-
 RB = [0, 1, 2, 3]
 ChiffresSigni = 3
 
@@ -16,9 +17,8 @@ PHStart = "<--- Veuillez saisir la valeur de votre résistance"
 PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF', 'violet', 'grey', '#FFFFFF']
 
 
-#Définition Fonctions
-
-#Fonction de vérification s'il n'y a pas de nombres décimaux et nombres > 10^9
+#Définition des Fonctions
+#Fonction de vérification s'il n'y a pas de point ou d'espace, de chiffres significatifs de > 12 et de nombres < ChiffresSigni
 def Verification():
 	global strResis
 	strResis = str(ZT.get())
@@ -56,7 +56,7 @@ def Clean():
 	ZT.delete(first = 0, last = len(str(ZT.get())))
 	Texte.set(PHStart)
 
-#Fonction du choix du nombres de bandes
+#Fonction du choix du nombres de bandes selon les chiffres significatifs
 def Bandes3():
 	global ChiffresSigni
 	Graphique.itemconfig(RB[2], fill = "#87591A", outline = "#87591A")
@@ -71,7 +71,7 @@ def Bandes4():
 	Fenetre.title("Résistance à 4 bandes")
 	Clean()
 
-#Fonction Ouvrir la page du projet
+#Fonctions d'ouverture de pages web
 def WebProj():
 	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN')
 
@@ -81,6 +81,7 @@ def WebAuteur(event):
 def WebLicence(event):
 	webbrowser.open_new_tab('https://github.com/Frederic94500/Resistance-ISN/blob/master/LICENSE')
 
+#Fonction à propos (créateur + licence)(ouvre une nouvelle fenêtre)
 def APropos():
 	About = Toplevel()
 	About.title("A propos et licence")
@@ -102,9 +103,13 @@ def APropos():
 	img.image = photo
 	img.pack()
 
+	About.iconbitmap('icon.ico')
+
+
 #Création Fenètre
 Fenetre = Tk()
 Fenetre.title('Résistance à 4 bandes')
+Fenetre.iconbitmap('icon.ico')
 
 #Création du Canvas
 Graphique = Canvas(Fenetre, width = 1280, height = 480, bg = PC[9])
