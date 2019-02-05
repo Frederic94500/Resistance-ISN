@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 #Frédéric94500 - Résistance-ISN
 
 from tkinter import *
@@ -6,8 +7,8 @@ from tkinter.messagebox import *
 from PIL import Image, ImageTk
 
 #Définition des variables
-RB = [0, 1, 2, 3]
-ChiffresSigni = 3
+RectangleBande = [0, 1, 2, 3]
+ChiffresSignificatif = 3
 
 #PHrase de début
 PHStart = "<--- Veuillez saisir la valeur de votre résistance"
@@ -18,56 +19,63 @@ PC = ['#000000', '#582900', '#FF0000', 'orange', 'yellow', '#00FF00', '#0000FF',
 
 
 #Définition des Fonctions
-#Fonction de vérification s'il n'y a pas de point ou d'espace, de chiffres significatifs de > 12 et de nombres < ChiffresSigni
+#Fonction de vérification s'il y a que des chiffres, de > 12 et de nombres < ChiffresSignificatif
 def Verification():
-	global strResis
-	strResis = str(ZT.get())
-	for I in range(len(strResis)):
-		if strResis[I] == "." or strResis[I] == " " or len(strResis) > 12:
-			WARN = showwarning("Attention!", "Je digère mal les nombres décimaux, les espaces et les nombres au dessus de 12 chiffres significatifs. Veuillez vérifier votre saisie.")
+	global listResis
+	try:
+		test = int(ZoneTexte.get()) #Vérifie s'il y a des caractères étrangés, s'il y a: passe vers except ValueError
+		listResis = list(str(test))
+		for I in range(len(listResis)): #Supprime les zéros
+			if listResis[I] == "0": del listResis[0:0]
+			else: break;
+		if (ChiffresSignificatif == 3 and len(listResis) < 3) or (ChiffresSignificatif == 2 and len(listResis) < 2): #Vérifie s'il y a peu de ChiffresSignificatif
+			WARN = showwarning("Attention!", "Votre valeur " + "".join(listResis) + " n'a pas assez de chiffres significatifs (c'est-à-dire " + str(ChiffresSignificatif) + "). Veuillez vérifier votre saisie.")
 			Texte.set('<--- Veuillez vérifier votre valeur')
 			return
-	if (ChiffresSigni == 3 and len(strResis) < 3) or (ChiffresSigni == 2 and len(strResis) < 2):
-		WARN = showwarning("Attention!", "Votre valeur " + strResis + " n'a pas assez de chiffres significatifs (c'est-à-dire " + str(ChiffresSigni) + "). Veuillez vérifier votre saisie.")
+		if len(listResis) > 12: #Vérifie s'il y a trop de chiffres
+			WARN = showwarning("Attention!", "Je digère mal les nombres au dessus de 12 chiffres significatifs! Veuillez vérifier votre saisie.")
+			Texte.set('<--- Veuillez vérifier votre valeur')
+			return
+		else: Couleurs(ChiffresSignificatif)
+
+	except ValueError:
+		WARN = showwarning("Attention!", "Je n'accepte que des chiffres! Veuillez vérifier votre saisie.")
 		Texte.set('<--- Veuillez vérifier votre valeur')
-	else:
-		Couleurs(ChiffresSigni)
+		return
 
 #Fonction de coloration des bandes
-def Couleurs(ChiffresSigni):
-	listResis = list(strResis)
+def Couleurs(ChiffresSignificatif):
 	Clean()
-	Texte.set('Voici les couleurs de la résistance pour: ' + strResis)
-	[Graphique.itemconfig(RB[I], fill = PC[int(listResis[I])]) for I in range(ChiffresSigni)]
-	del listResis[0:ChiffresSigni-1]
-	Graphique.itemconfig(RB[3], fill = PC[len(listResis)-1])
-
-
+	Texte.set('Voici les couleurs de la résistance pour: ' + "".join(listResis))
+	[Graphique.itemconfig(RectangleBande[I], fill = PC[int(listResis[I])]) for I in range(ChiffresSignificatif)]
+	del listResis[0:ChiffresSignificatif-1]
+	Graphique.itemconfig(RectangleBande[3], fill = PC[len(listResis)-1])
+		
 #Fonction "Quand on appuie sur "enter""
 def Enter(event):
 	Verification()
 
 #Fonction de nettoyage
 def Clean():
-	if ChiffresSigni == 3: [Graphique.itemconfig(RB[I], fill = PC[0]) for I in range(4)]
+	if ChiffresSignificatif == 3: [Graphique.itemconfig(RectangleBande[I], fill = PC[0]) for I in range(4)]
 	else:
-		[Graphique.itemconfig(RB[I], fill = PC[0]) for I in range(ChiffresSigni)]
-		Graphique.itemconfig(RB[3], fill = PC[0])
-	ZT.delete(first = 0, last = len(str(ZT.get())))
+		[Graphique.itemconfig(RectangleBande[I], fill = PC[0]) for I in range(ChiffresSignificatif)]
+		Graphique.itemconfig(RectangleBande[3], fill = PC[0])
+	ZoneTexte.delete(first = 0, last = len(str(ZoneTexte.get())))
 	Texte.set(PHStart)
 
 #Fonction du choix du nombres de bandes selon les chiffres significatifs
 def Bandes3():
-	global ChiffresSigni
-	Graphique.itemconfig(RB[2], fill = "#87591A", outline = "#87591A")
-	ChiffresSigni = 2
+	global ChiffresSignificatif
+	Graphique.itemconfig(RectangleBande[2], fill = "#87591A", outline = "#87591A")
+	ChiffresSignificatif = 2
 	Fenetre.title("Résistance à 3 bandes")
 	Clean()
 
 def Bandes4():
-	global ChiffresSigni
-	Graphique.itemconfig(RB[2], fill = PC[0], outline = PC[0])
-	ChiffresSigni = 3
+	global ChiffresSignificatif
+	Graphique.itemconfig(RectangleBande[2], fill = PC[0], outline = PC[0])
+	ChiffresSignificatif = 3
 	Fenetre.title("Résistance à 4 bandes")
 	Clean()
 
@@ -125,6 +133,8 @@ filemenu.add_command(label = "Quitter", command = Fenetre.destroy)
 Actif = IntVar()
 editmenu = Menu(menubar, tearoff=0)
 menubar.add_cascade(label = "Edition", menu = editmenu)
+editmenu.add_command(label = "Effacer la résistance", command = Clean)
+editmenu.add_separator()
 editmenu.add_radiobutton(label = "Résistance à 4 bandes", variable = Actif, value = 0, command = Bandes4)
 editmenu.add_radiobutton(label = "Résistance à 3 bandes", variable = Actif, value = 1, command = Bandes3)
 
@@ -143,34 +153,34 @@ BoutonAfficher = Button(Fenetre, text = 'Afficher', command = Verification).pack
 BoutonEffacer = Button(Fenetre, text = 'Effacer', command = Clean).pack(side = LEFT)
 
 #Création Zone de Texte
-ZT = Entry(justify = CENTER)
-ZT.focus_set()
-ZT.pack(side = LEFT, fill = BOTH, padx = 5, pady = 5)
+ZoneTexte = Entry(justify = CENTER)
+ZoneTexte.focus_set()
+ZoneTexte.pack(side = LEFT, fill = BOTH, padx = 5, pady = 5)
 
 #Quand on appuie sur "enter"
 Fenetre.bind('<Return>', Enter)
 
 #Création Texte et Texte Annonce
 Texte = StringVar()
-TA = Label(Fenetre, textvariable = Texte).pack(side = LEFT)
+TextAnnonce = Label(Fenetre, textvariable = Texte).pack(side = LEFT)
 Texte.set(PHStart)
 
 #Création Rectangle Central
 RC = Graphique.create_rectangle(160, 120, 1120, 360, outline = '#87591A' , fill = '#87591A')
 
-#Création Lignes
-LN = Graphique.create_line(20, 240, 160 , 240, width = 20)
-LN2 = Graphique.create_line(1120, 240, 1260, 240, width = 20)
+#Création Connecteurs
+Connecteur = Graphique.create_line(20, 240, 160 , 240, width = 20)
+Connecteur2 = Graphique.create_line(1120, 240, 1260, 240, width = 20)
 
 #Création Rectangles Bandes
-RB[0] = Graphique.create_rectangle(260, 120, 360, 360, fill = PC[0])
-RB[1] = Graphique.create_rectangle(410, 120, 510, 360, fill = PC[0])
+RectangleBande[0] = Graphique.create_rectangle(260, 120, 360, 360, fill = PC[0])
+RectangleBande[1] = Graphique.create_rectangle(410, 120, 510, 360, fill = PC[0])
 
 #Création Rectangle Bande variable (disparaît à 2 Chiffres Significatifs)
-RB[2] = Graphique.create_rectangle(560, 120, 660, 360, fill = PC[0])
+RectangleBande[2] = Graphique.create_rectangle(560, 120, 660, 360, fill = PC[0])
 
 #Création Rectangle Bande Multiplicateur
-RB[3] = Graphique.create_rectangle(920, 120, 1020, 360, fill = PC[0])
+RectangleBande[3] = Graphique.create_rectangle(920, 120, 1020, 360, fill = PC[0])
 
 #Initialisation du GUI
 Fenetre.mainloop()
