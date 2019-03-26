@@ -4,7 +4,7 @@
 from tkinter import *
 import webbrowser
 from tkinter.messagebox import *
-from PIL import Image, ImageTk
+from PIL import Image
 
 #Définition des variables
 RectangleBande = [0, 1, 2, 3]
